@@ -1,4 +1,4 @@
-#Discord Repost
+# Discord Repost
 A simple python script to repost a message from a different server to your own
 
 # How To Use

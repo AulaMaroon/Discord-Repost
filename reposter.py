@@ -7,13 +7,14 @@ def configsetup():
     token = (config['main']['token'])
     readchannel = (config['main']['readchannel'])
     postchannel = (config['main']['postchannel'])
+    timesleep = (config['main']['timesleep'])
     api = (config['main']['api'])
     header = {
         'authorization' : token
     }
-    return readchannel, postchannel, api, header, config
+    return readchannel, postchannel, api, header, config, timesleep
 
-def checkandpost(readchannel, postchannel, api, header, config):
+def checkandpost(readchannel, postchannel, api, header, config, timesleep):
     while True:
         #grab all chat from readchannel
         messages = requests.get(api + '/channels/' + readchannel + '/messages',headers=header)
@@ -37,8 +38,9 @@ def checkandpost(readchannel, postchannel, api, header, config):
                 "content": latestchatcontent
             }
             requests.post(api + '/channels/' + postchannel + '/messages',headers=header, data=payload)
+        time.sleep(timesleep)
         
 
 if __name__ == '__main__':
-    readchannel, postchannel, api, header, config = configsetup()
-    checkandpost(readchannel, postchannel, api, header, config)
+    readchannel, postchannel, api, header, config, timesleep = configsetup()
+    checkandpost(readchannel, postchannel, api, header, config, timesleep)
